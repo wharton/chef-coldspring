@@ -1,4 +1,4 @@
 chef-coldspring
 ===============
 
-chef cookbook for coldspring
+chef cookbook for the coldspring framework
