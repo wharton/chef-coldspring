@@ -23,7 +23,7 @@ package "unzip" do
   action :install
 end
 
-# Download Coldspring
+# Download coldspring
 
 remote_file "#{Chef::Config['file_cache_path']}/coldspring1-2-final.zip" do
   source "#{node['coldspring']['download']['url']}"
@@ -42,7 +42,7 @@ script "install_coldspring" do
   cwd "#{Chef::Config['file_cache_path']}"
   code <<-EOH
 unzip coldspring1-2-final.zip 
-mv coldspring #{node['coldspring']['install_path']}
+mv coldspring-1-2-final #{node['coldspring']['install_path']}
 chown -R nobody:bin #{node['coldspring']['install_path']}/coldspring
 EOH
   not_if { File.directory?("#{node['coldspring']['install_path']}/coldspring") }
@@ -61,5 +61,3 @@ coldfusion902_config "extensions" do
   args ({ "mapName" => "/coldspring",
           "mapPath" => "#{node['coldspring']['install_path']}/coldspring"})
 end
-
-
