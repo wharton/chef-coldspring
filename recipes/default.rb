@@ -17,47 +17,4 @@
 # limitations under the License.
 #
 
-# Install the unzip package
-
-package "unzip" do
-  action :install
-end
-
-# Download coldspring
-
-remote_file "#{Chef::Config['file_cache_path']}/coldspring1-2-final.zip" do
-  source "#{node['coldspring']['download']['url']}"
-  action :create_if_missing
-  mode "0744"
-  owner "root"
-  group "root"
-  not_if { File.directory?("#{node['coldspring']['install_path']}/coldspring") }
-end
-
-# Extract archive
-
-script "install_coldspring" do
-  interpreter "bash"
-  user "root"
-  cwd "#{Chef::Config['file_cache_path']}"
-  code <<-EOH
-unzip coldspring1-2-final.zip 
-mv coldspring-1-2-final #{node['coldspring']['install_path']}
-chown -R nobody:bin #{node['coldspring']['install_path']}/coldspring
-EOH
-  not_if { File.directory?("#{node['coldspring']['install_path']}/coldspring") }
-end
-
-# Set up ColdFusion mapping
-
-execute "start_cf_for_coldspring_default_cf_config" do
-  command "/bin/true"
-  notifies :start, "service[coldfusion]", :immediately
-end
-
-coldfusion902_config "extensions" do
-  action :set
-  property "mapping"
-  args ({ "mapName" => "/coldspring",
-          "mapPath" => "#{node['coldspring']['install_path']}/coldspring"})
-end
+include_recipe "coldspring::coldspring"
