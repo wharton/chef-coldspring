@@ -23,9 +23,11 @@ package "unzip" do
   action :install
 end
 
+file_name = node['coldspring']['download']['url'].split('/').last
+
 # Download coldspring
 
-remote_file "#{Chef::Config['file_cache_path']}/coldspring1-2-final.zip" do
+remote_file "#{Chef::Config['file_cache_path']}/#{file_name}" do
   source "#{node['coldspring']['download']['url']}"
   action :create_if_missing
   mode "0744"
@@ -41,7 +43,7 @@ script "install_coldspring" do
   user "root"
   cwd "#{Chef::Config['file_cache_path']}"
   code <<-EOH
-unzip coldspring1-2-final.zip 
+unzip #{file_name} 
 mv coldspring-1-2-final #{node['coldspring']['install_path']}
 chown -R nobody:bin #{node['coldspring']['install_path']}/coldspring
 EOH
