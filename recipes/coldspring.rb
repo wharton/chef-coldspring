@@ -36,6 +36,16 @@ remote_file "#{Chef::Config['file_cache_path']}/#{file_name}" do
   not_if { File.directory?("#{node['coldspring']['install_path']}/coldspring") }
 end
 
+# Create Directory if missing
+
+directory "#{node['coldspring']['install_path']}" do
+ owner "vagrant"
+ group "vagrant"
+ mode "0755"
+ action :create
+ not_if { File.directory?("#{node['coldspring']['install_path']}") }
+end
+
 # Extract archive
 
 script "install_coldspring" do
