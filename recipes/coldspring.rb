@@ -54,7 +54,7 @@ script "install_coldspring" do
   cwd "#{Chef::Config['file_cache_path']}"
   code <<-EOH
 unzip #{file_name} 
-mv coldspring #{node['coldspring']['install_path']}
+mv coldspring-2-1-final #{node['coldspring']['install_path']}/coldspring
 chown -R nobody:bin #{node['coldspring']['install_path']}/coldspring
 EOH
   not_if { File.directory?("#{node['coldspring']['install_path']}/coldspring") }
