@@ -33,7 +33,7 @@ remote_file "#{Chef::Config['file_cache_path']}/#{file_name}" do
   mode "0744"
   owner "root"
   group "root"
-  not_if { File.directory?("#{node['coldspring']['install_path']}") }
+  not_if { File.directory?("#{node['coldspring']['install_path']}/coldspring") }
 end
 
 # Create Directory if missing
@@ -53,8 +53,8 @@ script "install_coldspring" do
   user "root"
   cwd "#{Chef::Config['file_cache_path']}"
   code <<-EOH
-unzip #{file_name} 
-mv coldspring-2-1-final #{node['coldspring']['install_path']}/coldspring
+unzip #{file_name} -d coldspring 
+mv coldspring #{node['coldspring']['install_path']}
 chown -R nobody:bin #{node['coldspring']['install_path']}/coldspring
 EOH
   not_if { File.directory?("#{node['coldspring']['install_path']}/coldspring") }
