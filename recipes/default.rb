@@ -67,7 +67,7 @@ execute "start_cf_for_coldspring_default_cf_config" do
   notifies :start, "service[coldfusion]", :immediately
 end
 
-coldfusion10_config "extensions" do
+coldfusion902_config "extensions" do
   action :set
   property "mapping"
   args ({ "mapName" => "/coldspring",

@@ -9,6 +9,6 @@ version          "0.0.7"
   supports os
 end
 
-depends "coldfusion10"
+depends "coldfusion902"
 
-recipe "default", "installs coldspring 1.2 and adds mapping."
+recipe "default", "installs coldspring 1.2 and adds a ColdFusion mapping."
