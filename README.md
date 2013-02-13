@@ -14,7 +14,7 @@ coldfusion10
 Attributes
 ==========
 
-* `node['coldspring']['install_path']` (Default is /vagrant/frameworks)
+* `node['coldspring']['install_path']` (Default is /var/www/frameworks)
 * `node['coldspring']['download']['url']` (Default is http://www.coldspringframework.org/downloads/coldspring1-2-final.zip)
 
 Usage

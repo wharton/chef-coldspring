@@ -39,8 +39,8 @@ end
 # Create Directory if missing
 
 directory "#{node['coldspring']['install_path']}" do
- owner "vagrant"
- group "vagrant"
+ owner "root"
+ group "root"
  mode "0755"
  action :create
  not_if { File.directory?("#{node['coldspring']['install_path']}") }
