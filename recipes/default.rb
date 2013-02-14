@@ -39,8 +39,8 @@ end
 # Create Directory if missing
 
 directory "#{node['coldspring']['install_path']}" do
- owner "root"
- group "root"
+ owner node['coldspring']['owner']
+ group node['coldspring']['group']
  mode "0755"
  action :create
  not_if { File.directory?("#{node['coldspring']['install_path']}") }
@@ -55,7 +55,7 @@ script "install_coldspring" do
   code <<-EOH
 unzip #{file_name} -d coldspring 
 mv coldspring #{node['coldspring']['install_path']}
-chown -R nobody:bin #{node['coldspring']['install_path']}/coldspring
+chown -R #{node['coldspring']['owner']}:#{node['coldspring']['group']} #{node['coldspring']['install_path']}/coldspring
 EOH
   not_if { File.directory?("#{node['coldspring']['install_path']}/coldspring") }
 end
