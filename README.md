@@ -15,7 +15,7 @@ Attributes
 ==========
 
 * `node['coldspring']['install_path']` (Default is /vagrant/frameworks)
- * `node['coldspring']['owner']` (Default is `node['cf10']['installer']['runtimeuser']`)
+ * `node['coldspring']['owner']` (Default is `nil` which will result in owner being set to `node['cf10']['installer']['runtimeuser']`)
 ** `node['coldspring']['group']` (Default is bin)
 * `node['coldspring']['download']['url']` (Default is http://www.coldspringframework.org/downloads/coldspring1-2-final.zip)
 
