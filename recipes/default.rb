@@ -23,7 +23,7 @@ package "unzip" do
   action :install
 end
 
-node.set['coldspring']['owner'] = node['cf10']['installer']['runtimeuser'] if node['coldspring']['owner'] == nil
+node.set['coldspring']['owner'] = "nobody" if node['coldspring']['owner'] == nil
 
 file_name = node['coldspring']['download']['url'].split('/').last
 
