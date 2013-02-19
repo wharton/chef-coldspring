@@ -23,6 +23,8 @@ package "unzip" do
   action :install
 end
 
+node.set['coldspring']['owner'] = node['cf10']['installer']['runtimeuser'] if node['coldspring']['owner'] == nil
+
 file_name = node['coldspring']['download']['url'].split('/').last
 
 # Download coldspring
@@ -39,9 +41,10 @@ end
 # Create Directory if missing
 
 directory "#{node['coldspring']['install_path']}" do
- owner "vagrant"
- group "vagrant"
+ owner node['coldspring']['owner']
+ group node['coldspring']['group']
  mode "0755"
+ recursive true
  action :create
  not_if { File.directory?("#{node['coldspring']['install_path']}") }
 end
@@ -55,7 +58,7 @@ script "install_coldspring" do
   code <<-EOH
 unzip #{file_name} -d coldspring 
 mv coldspring #{node['coldspring']['install_path']}
-chown -R nobody:bin #{node['coldspring']['install_path']}/coldspring
+chown -R #{node['coldspring']['owner']}:#{node['coldspring']['group']} #{node['coldspring']['install_path']}/coldspring
 EOH
   not_if { File.directory?("#{node['coldspring']['install_path']}/coldspring") }
 end
